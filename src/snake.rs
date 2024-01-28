@@ -3,6 +3,7 @@ use piston_window::{Context, G2d};
 use piston_window::types::Color;
 
 use crate::draw::draw_block;
+use crate::main;
 
 const SNAKE_COLOR: Color = [0.00, 0.80, 0.00, 1.0];
 
@@ -77,5 +78,33 @@ impl Snake {
    pub fn head_position(&self) -> (i32, i32) {
       let head_block = self.body.front().unwrap();
       (head_block.x, head_block.y)
+   }
+
+   pub fn move_forward(&mut self, dir: Option<Direction>) {
+      match dir {
+         Some(d) => self.direction = d,
+         None => (),
+      }
+
+      let (last_x, last_y): (i32, i32) = self.head_position();
+
+      let new_block = match self.direction {
+         Direction::Up => Block {
+            x: last_x,
+            y: last_y - 1,
+         },
+         Direction::Down => Block {
+            x: last_x,
+            y: last_y + 1,
+         },
+         Direction::Left => Block {
+            x: last_x - 1,
+            y: last_y,
+         },
+         Direction::Right => Block {
+            x: last_x + 1,
+            y: last_y,
+         },
+      };
    }
 }
