@@ -102,4 +102,29 @@ impl Game {
          self.snake.restore_tail();
       }
    }
+
+   fn check_if_snake_alive(&self, dir: Option<Direction>) -> bool {
+      let (next_x, next_y) = self.snake.next_head(dir);
+
+      if self.snake.onverlap_tail(next_x, next_y) {
+         return false;
+      }
+
+      next_x > 0 && next_y > 0 && next_x < self.width -1 && next_y < self.height -1
+   }
+
+   fn add_food(&mut self) {
+      let mut rng = thread_rng();
+      let mut new_x = rng.gen_range(1..self.width - 1);
+      let mut new_y = rng.gen_range(1..self.height - 1);
+
+      while self.snake.onverlap_tail(new_x, new_y) {
+         let mut new_x = rng.gen_range(1..self.width - 1);
+         let mut new_y = rng.gen_range(1..self.height - 1);
+      }
+
+      self.food_x = new_x;
+      self.food_y = new_y;
+      self.food_exist = true;
+   }
 }
