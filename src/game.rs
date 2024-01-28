@@ -14,5 +14,27 @@ const MOVING_PERIOD: f64 = 0.1;
 const RESTART_TIME: f64 = 1.0;
 
 pub struct Game {
-   
+   snake: Snake,
+   food_exist: bool,
+   food_x: i32,
+   food_y: i32,
+   width: i32,
+   heigh: i32,
+   game_over: bool,
+   waiting_time: f64,
+}
+
+impl Game {
+   pub fn new(width: i32, heigh: i32) -> Game {
+      Game {
+         snake: Snake::new(2, 2),
+         waiting_time: 0.0,
+         food_exist: true,
+         food_x: 4,
+         food_y: 6,
+         width,
+         heigh,
+         game_over: false
+      }
+   }
 }
