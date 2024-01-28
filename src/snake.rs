@@ -18,3 +18,26 @@ pub enum Direction {
    Left,
    Right, 
 }
+
+impl Direction {
+   //verifica a posicao oposta a que a snake esta indo
+   pub fn oppositive(&self)  -> Direction {
+      match *self {
+         Direction::Up => Direction::Down,    
+         Direction::Down => Direction::Up,    
+         Direction::Left => Direction::Right,    
+         Direction::Right => Direction::Left,    
+      }
+   }
+}
+
+struct Block {
+   x: i32,
+   y: i32,
+}
+
+pub struct Snake {
+   direction: Direction,
+   body: LinkedList<Block>,
+   tail: Option<Block>,
+}
