@@ -1,3 +1,5 @@
+use std::thread::sleep;
+
 use piston_window::*;
 use piston_window::types::Color;
 
@@ -126,5 +128,25 @@ impl Game {
       self.food_x = new_x;
       self.food_y = new_y;
       self.food_exist = true;
+   }
+
+   fn update_snake(&mut self, dir: Option<Direction>) {
+      if self.check_if_snake_alive(dir) {
+         self.snake.move_forward(dir);
+         self.check_eating();
+      } else {
+         self.game_over = true;
+      }
+
+      self.waiting_time = 0.0;
+   }
+
+   fn restart(&mut self) {
+      self.snake = Snake::new(2,2);
+      self.waiting_time = 0.0;
+      self.food_exist = true;
+      self.food_x = 6;
+      self.food_y = 4;
+      self.game_over = false;
    }
 }
