@@ -19,13 +19,13 @@ pub struct Game {
    food_x: i32,
    food_y: i32,
    width: i32,
-   heigh: i32,
+   height: i32,
    game_over: bool,
    waiting_time: f64,
 }
 
 impl Game {
-   pub fn new(width: i32, heigh: i32) -> Game {
+   pub fn new(width: i32, height: i32) -> Game {
       Game {
          snake: Snake::new(2, 2),
          waiting_time: 0.0,
@@ -33,7 +33,7 @@ impl Game {
          food_x: 4,
          food_y: 6,
          width,
-         heigh,
+         height,
          game_over: false
       }
    }
@@ -56,5 +56,22 @@ impl Game {
       }
 
       self.update_snake(dir);
+   }
+
+   pub fn draw(&self, con: &Context, g: &mut G2d) {
+      self.snake.draw(con, g);
+
+      if self.food_exist {
+         draw_block(FOOD_COLOR, self.food_x, self.food_y, con, g);
+      }
+
+      draw_rectangle(BORDER_COLOR, 0, 0, self.width, 1, con, g);
+      draw_rectangle(BORDER_COLOR, 0, self.height -1, self.width, 1, con, g);
+      draw_rectangle(BORDER_COLOR, 0, 0, 1, self.height, con, g);
+      draw_rectangle(BORDER_COLOR, self.width -1, 0, 1, self.height, con, g);
+
+      if self.game_over{
+          draw_rectangle(GAMEOVER_COLOR, 0, 0, self.width, self.height, con, g);
+      }
    }
 }
