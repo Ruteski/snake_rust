@@ -3,7 +3,6 @@ use piston_window::{Context, G2d};
 use piston_window::types::Color;
 
 use crate::draw::draw_block;
-use crate::main;
 
 const SNAKE_COLOR: Color = [0.00, 0.80, 0.00, 1.0];
 
@@ -106,5 +105,10 @@ impl Snake {
             y: last_y,
          },
       };
+
+      self.body.push_front(new_block);
+      
+      let remove_block = self.body.pop_back().unwrap();
+      self.tail = Some(remove_block);
    }
 }
