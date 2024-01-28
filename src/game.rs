@@ -74,4 +74,32 @@ impl Game {
           draw_rectangle(GAMEOVER_COLOR, 0, 0, self.width, self.height, con, g);
       }
    }
+
+   pub fn update(&mut self, delta_time: f64) {
+      self.waiting_time += delta_time;
+
+      if self.game_over {
+         if self.waiting_time > RESTART_TIME {
+            self.restart();
+         }
+         return;
+      }
+
+      if !self.food_exist {
+         self.add_food();
+      }
+
+      if self.waiting_time > MOVING_PERIOD {
+         self.update_snake(None);
+      }
+   }
+
+   pub fn check_eating(&mut self) {
+      let (head_x, head_y): (i32, i32) = self.snake.head_position();
+
+      if self.food_exist && self.food_x == head_x && self.food_y == head_y {
+         self.food_exist = false;
+         self.snake.restore_tail();
+      }
+   }
 }
