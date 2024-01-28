@@ -37,4 +37,24 @@ impl Game {
          game_over: false
       }
    }
+
+   pub fn key_pressed(&mut self, key: Key) {
+      if self.game_over {
+         return;
+      }
+
+      let dir = match key {
+         key::Up => Some(Direction::Up),
+         key::Down => Some(Direction::Down),
+         key::Left => Some(Direction::Left),
+         key::Right => Some(Direction::Right),     
+         _ => None,
+      };
+
+      if dir.unwrap() == self.snake.head_direction().oppositive() {
+         return;
+      }
+
+      self.update_snake(dir);
+   }
 }
