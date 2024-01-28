@@ -24,6 +24,11 @@ pub fn to_cood(game_coord: i32) -> f64 {
    (game_coord as f64) * BLOCK_SIZE
 }
 
+pub fn to_cood_u32(game_coord: i32) -> u32 {
+   to_cood(game_coord) as u32
+}
+
+
 
 /*
 A função "draw_block" é usada para desenhar um "bloco" na janela. 

@@ -1,5 +1,3 @@
-use std::thread::sleep;
-
 use piston_window::*;
 use piston_window::types::Color;
 
@@ -45,13 +43,13 @@ impl Game {
          return;
       }
 
-      let dir = match key {
-         key::Up => Some(Direction::Up),
-         key::Down => Some(Direction::Down),
-         key::Left => Some(Direction::Left),
-         key::Right => Some(Direction::Right),     
+      let dir = match key{
+         Key::Up => Some(Direction::Up),
+         Key::Down => Some(Direction::Down),
+         Key::Left => Some(Direction::Left),
+         Key::Right => Some(Direction::Right),
          _ => None,
-      };
+     };
 
       if dir.unwrap() == self.snake.head_direction().oppositive() {
          return;
@@ -117,12 +115,12 @@ impl Game {
 
    fn add_food(&mut self) {
       let mut rng = thread_rng();
-      let mut new_x = rng.gen_range(1..self.width - 1);
-      let mut new_y = rng.gen_range(1..self.height - 1);
+      let mut new_x = rng.gen_range(1..(self.width - 1));
+      let mut new_y = rng.gen_range(1..(self.height - 1));
 
       while self.snake.onverlap_tail(new_x, new_y) {
-         let mut new_x = rng.gen_range(1..self.width - 1);
-         let mut new_y = rng.gen_range(1..self.height - 1);
+         let mut new_x = rng.gen_range(1..(self.width - 1));
+         let mut new_y = rng.gen_range(1..(self.height - 1));
       }
 
       self.food_x = new_x;
