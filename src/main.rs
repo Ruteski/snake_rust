@@ -49,7 +49,7 @@ fn main() {
             game.key_pressed(key);
         }
 
-        window.draw_2d(&event, |c, g|{
+        window.draw_2d( &event, |c, g|{
             clear(BACK_COLOR, g);
             game.draw(&c, g);
         });
